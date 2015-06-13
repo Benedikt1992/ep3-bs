@@ -44,6 +44,7 @@ class MailTransportService extends AbstractService
                     break;
                 case 'smtpoverssl':
                     $options = new SmtpOptions(array(
+                        'name' => $this->configManager->need('mail.host'),
                         'host' => $this->configManager->need('mail.host'),
                         'port' => $this->configManager->need('mail.port'),
                         'connection_class' => 'plain',
