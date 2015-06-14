@@ -43,18 +43,23 @@ class MailTransportService extends AbstractService
                     $this->transport->setOptions($options);
                     break;
                 case 'smtpoverssl':
-                    $options = new SmtpOptions(array(
-                        'name' => $this->configManager->need('mail.host'),
+                    $optionsArray = array(
                         'host' => $this->configManager->need('mail.host'),
-                        'port' => $this->configManager->need('mail.port'),
+                        'port' => 587,
                         'connection_class' => 'plain',
                         'connection_config' => array(
                             'username' => $this->configManager->need('mail.user'),
                             'password' => $this->configManager->need('mail.pw'),
                             'ssl' => $this->configManager->need('mail.ssl'),
                         ),
-                    ));
-
+                    );
+                    
+                    $optionPort =  $this->configManager->get('mail.port');
+                    if (is_numeric($optionPort)) {
+                        $optionsArray['port'] = $optionPort;
+                    }
+                    
+                    $options = new SmtpOptions($optionsArray);
                     $this->transport = new Smtp();
                     $this->transport->setOptions($options);
                     break;

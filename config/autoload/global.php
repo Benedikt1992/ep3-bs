@@ -18,6 +18,10 @@ ini_set('html_errors',  EP3_BS_DEV ? 1 : 0);
 ini_set('ignore_user_abort', EP3_BS_DEV ? 1 : 0);
 
 return array(
+    'mail' => array(
+         'port' => 587, 
+         'ssl' => 'tls', 
+    ),
     'db' => array(
         'driver' => 'pdo',
         'driver_options' => array(
